@@ -67,7 +67,6 @@ class dannAlexNet(nn.Module):
             nn.Linear(4096, 4096),
             nn.ReLU(inplace=True),
             nn.Linear(4096, num_classes),
-            nn.LogSoftmax(dim=1),
         )
     def forward(self, x, alpha=None):
         features = self.features(x)
@@ -87,12 +86,6 @@ class dannAlexNet(nn.Module):
 
 
 def dannalexnet(pretrained=False, progress=True, **kwargs):
-    r"""AlexNet model architecture from the
-    `"One weird trick..." <https://arxiv.org/abs/1404.5997>`_ paper.
-    Args:
-        pretrained (bool): If True, returns a model pre-trained on ImageNet
-        progress (bool): If True, displays a progress bar of the download to stderr
-    """
     model = dannAlexNet(**kwargs)
     if pretrained:
         state_dict = load_state_dict_from_url(model_urls['alexnet'],
